@@ -56,7 +56,7 @@ else(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     find_library(GR_FILTER_LIBRARY libgnuradio-filter.so )
 endif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
 set(GR_FILTER_LIBRARIES ${GR_FILTER_LIBRARY})
-target_link_libraries(gnuradio-op25_repeater ${Boost_LIBRARIES} ${GNURADIO_RUNTIME_LIBRARIES} ${GR_FILTER_LIBRARIES} imbe_vocoder)
+target_link_libraries(gnuradio-op25_repeater ${Boost_LIBRARIES} ${GNURADIO_RUNTIME_LIBRARIES} ${GNURADIO_PMT_LIBRARIES} ${GR_FILTER_LIBRARIES} imbe_vocoder)
 set_target_properties(gnuradio-op25_repeater PROPERTIES DEFINE_SYMBOL "gnuradio_op25_repeater_EXPORTS")
 
 ########################################################################
@@ -71,25 +71,25 @@ install(TARGETS gnuradio-op25_repeater
 ########################################################################
 # Build and register unit test
 ########################################################################
-include(GrTest)
-
-include_directories(${CPPUNIT_INCLUDE_DIRS})
-
-list(APPEND test_op25_repeater_sources
-    ${CMAKE_CURRENT_SOURCE_DIR}/test_op25_repeater.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}/qa_op25_repeater.cc
-)
-
-add_executable(test-op25_repeater ${test_op25_repeater_sources})
-
-target_link_libraries(
-  test-op25_repeater
-  ${GNURADIO_RUNTIME_LIBRARIES}
-  ${Boost_LIBRARIES}
-  ${CPPUNIT_LIBRARIES}
-  gnuradio-op25_repeater
-)
-
-GR_ADD_TEST(test_op25_repeater test-op25_repeater)
+#include(GrTest)
+#
+#include_directories(${CPPUNIT_INCLUDE_DIRS})
+#
+#list(APPEND test_op25_repeater_sources
+#    ${CMAKE_CURRENT_SOURCE_DIR}/test_op25_repeater.cc
+#    ${CMAKE_CURRENT_SOURCE_DIR}/qa_op25_repeater.cc
+#)
+#
+#add_executable(test-op25_repeater ${test_op25_repeater_sources})
+#
+#target_link_libraries(
+#  test-op25_repeater
+#  ${GNURADIO_RUNTIME_LIBRARIES}
+#  ${Boost_LIBRARIES}
+#  ${CPPUNIT_LIBRARIES}
+#  gnuradio-op25_repeater
+#)
+#
+#GR_ADD_TEST(test_op25_repeater test-op25_repeater)
 
 add_subdirectory(imbe_vocoder)

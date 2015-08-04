@@ -29,7 +29,9 @@
 #include <gnuradio/io_signature.h>
 #include <algorithm>
 #include <iostream>
+#ifndef ANDROID
 #include <itpp/comm/bch.h>
+#endif
 #include "logfile_du_handler.h"
 #include "offline_imbe_decoder.h"
 #include "voice_du_handler.h"
@@ -165,6 +167,11 @@ namespace gr {
     data_unit_sptr
     decoder_bf_impl::identified()
     {
+#ifdef ANDROID
+      data_unit_sptr null;
+      d_data_unit = null;
+      return d_data_unit;
+#else
       static const size_t NID[] = {
 	63,  62,  61,  60,  59,  58,  57,  56,
 	55,  54,  53,  52,  51,  50,  49,  48,
@@ -190,6 +197,7 @@ namespace gr {
 	d_data_unit = null;
       }
       return d_data_unit;
+#endif
     }
 
     void

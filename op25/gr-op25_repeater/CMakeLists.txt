@@ -23,7 +23,7 @@
 ########################################################################
 cmake_minimum_required(VERSION 2.6)
 project(gr-op25_repeater CXX C)
-enable_testing()
+#enable_testing()
 
 #select the release build type by default to get optimization flags
 if(NOT CMAKE_BUILD_TYPE)
@@ -84,6 +84,7 @@ set(GRC_BLOCKS_DIR      ${GR_PKG_DATA_DIR}/grc/blocks)
 # Find gnuradio build dependencies
 ########################################################################
 find_package(GnuradioRuntime)
+find_package(GnuradioPMT)
 find_package(CppUnit)
 
 # To run a more advanced search for GNU Radio and it's components and
@@ -122,6 +123,7 @@ link_directories(
     ${Boost_LIBRARY_DIRS}
     ${CPPUNIT_LIBRARY_DIRS}
     ${GNURADIO_RUNTIME_LIBRARY_DIRS}
+    ${GNURADIO_PMT_LIBRARY_DIRS}
 )
 
 # Set component parameters

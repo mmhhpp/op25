@@ -27,8 +27,10 @@
 #include <gnuradio/io_signature.h>
 #include "pcap_source_b_impl.h"
 
+#ifndef ANDROID
 #define PCAP_DONT_INCLUDE_PCAP_BPF_H
 #include <pcap/pcap.h>
+#endif
 
 using namespace std;
 
@@ -52,6 +54,7 @@ namespace gr {
 	loc_(0),
 	octets_(/* delay * 1200, 0 */)
     {
+#ifndef ANDROID
       char err[PCAP_ERRBUF_SIZE];
       pcap_t *pcap = pcap_open_offline(path, err);
       if(pcap) {
@@ -81,6 +84,7 @@ namespace gr {
 	cerr << " (" << err << ")" << endl;
 	exit(EXIT_FAILURE);
       }
+#endif
     }
 
     /*
@@ -95,6 +99,9 @@ namespace gr {
 			  gr_vector_const_void_star &input_items,
 			  gr_vector_void_star &output_items)
     {
+#ifdef ANDROID
+    return 0;
+#else
       try {
 	const size_t OCTETS_AVAIL = octets_.size();
 	uint8_t *out = reinterpret_cast<uint8_t*>(output_items[0]);
@@ -111,6 +118,7 @@ namespace gr {
 	cerr << "unhandled exception" << endl;
 	exit(EXIT_FAILURE);
       }
+#endif
     }
   } /* namespace op25 */
 } /* namespace gr */

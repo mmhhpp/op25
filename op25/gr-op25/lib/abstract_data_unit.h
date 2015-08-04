@@ -29,8 +29,9 @@
 
 #include <string>
 #include <vector>
-
+#ifndef ANDROID
 #include <itpp/base/vec.h>
+#endif
 #include <vector>
 
 typedef std::vector<bool> bit_vector;

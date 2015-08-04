@@ -23,9 +23,10 @@
 
 #include "tdu.h"
 #include "op25_yank.h"
-
+#ifndef ANDROID
 #include <itpp/base/vec.h>
 #include <itpp/comm/reedsolomon.h>
+#endif
 
 using std::string;
 

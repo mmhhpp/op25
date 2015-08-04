@@ -56,7 +56,7 @@ list(APPEND op25_sources
 )
 
 add_library(gnuradio-op25 SHARED ${op25_sources})
-target_link_libraries(gnuradio-op25 ${Boost_LIBRARIES} ${GNURADIO_RUNTIME_LIBRARIES} itpp pcap)
+target_link_libraries(gnuradio-op25 ${Boost_LIBRARIES} ${GNURADIO_RUNTIME_LIBRARIES} ${GNURADIO_PMT_LIBRARIES})
 set_target_properties(gnuradio-op25 PROPERTIES DEFINE_SYMBOL "gnuradio_op25_EXPORTS")
 
 ########################################################################
@@ -71,23 +71,17 @@ install(TARGETS gnuradio-op25
 ########################################################################
 # Build and register unit test
 ########################################################################
-include(GrTest)
-
-include_directories(${CPPUNIT_INCLUDE_DIRS})
-
-list(APPEND test_op25_sources
-    ${CMAKE_CURRENT_SOURCE_DIR}/test_op25.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}/qa_op25.cc
-)
-
-add_executable(test-op25 ${test_op25_sources})
-
-target_link_libraries(
-  test-op25
-  ${GNURADIO_RUNTIME_LIBRARIES}
-  ${Boost_LIBRARIES}
-  ${CPPUNIT_LIBRARIES}
-  gnuradio-op25
-)
-
-GR_ADD_TEST(test_op25 test-op25)
+#include(GrTest)
+#
+#include_directories(${CPPUNIT_INCLUDE_DIRS})
+#
+# add_executable(test-op25 ${test_op25_sources})
+#
+#target_link_libraries(
+#  test-op25
+#  ${GNURADIO_RUNTIME_LIBRARIES}
+#  ${GNURADIO_PMT_LIBRARIES}
+#  ${Boost_LIBRARIES}
+#  ${CPPUNIT_LIBRARIES}
+#  gnuradio-op25
+#)
